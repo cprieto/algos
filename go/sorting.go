@@ -38,3 +38,20 @@ func Selection(elems []int) []int {
 
 	return elems
 }
+
+// InsertSort sorts a list of integers using the insert method
+func InsertSort(elems []int) []int {
+	if elems == nil {
+		return nil
+	}
+
+	for current := 1; current < len(elems); current++ {
+		item := elems[current]
+		search_idx := current
+		for ; search_idx > 0 && elems[search_idx-1] > item; search_idx-- {
+			elems[search_idx] = elems[search_idx-1]
+		}
+		elems[search_idx] = item
+	}
+	return elems
+}

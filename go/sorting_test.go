@@ -44,3 +44,9 @@ func TestSelectionSortNilReturnsNil(t *testing.T) {
 		t.Errorf("Expected nil but got %v", result)
 	}
 }
+
+func TestInsertSortUnsortedSliceReturnsSortedSlice(t *testing.T) {
+	if result := InsertSort(entry); !reflect.DeepEqual(expected, result) {
+		t.Errorf("Expected %v but got %v", expected, result)
+	}
+}
