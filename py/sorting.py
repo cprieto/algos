@@ -3,47 +3,42 @@ from typing import List, TypeVar
 T = TypeVar('T')
 
 
-def bubble_sort(elems: List[T]) -> List[T]:
-    """Sorts a list using the bubble sort algorithm"""
+def bubble_sort(elems: List[T]):
+    """Sorts a list using the bubble sort algorithm, this is sort in-place"""
     if not elems:
-        return elems
+        return
     
-    items = elems.copy()
-    for mx in range(len(items), 0, -1):
+    for mx in range(len(elems), 0, -1):
         for idx in range(1, mx):
-            if items[idx - 1] > items[idx]:
-                items[idx - 1], items[idx] = items[idx], items[idx - 1]
-
-    return items
+            if elems[idx - 1] > elems[idx]:
+                elems[idx - 1], elems[idx] = elems[idx], elems[idx - 1]
 
 
 def selection_sort(elems: List[T]) -> List[T]:
-    """Sorts a list using the selection sort algorithm"""
+    """Sorts a list using the selection sort algorithm, this is sort in-place"""
     if not elems:
-        return elems
-    n, items = len(elems), elems.copy()
+        return
+
+    n = len(elems)
     for i in range(0, n):
         smidx = i
         for j in range(i + 1, n):
-            if items[smidx] > items[j]:
+            if elems[smidx] > elems[j]:
                 smidx = j
-        items[i], items[smidx] = items[smidx], items[i]
-    return items
+        elems[i], elems[smidx] = elems[smidx], elems[i]
 
 
 def insert_sort(elems: List[T]) -> List[T]:
-    """Sorts a list using the insertion sort algorithm"""
+    """Sorts a list using the insertion sort algorithm, this is sort in-place"""
     if not elems:
-        return elems
-    items = elems.copy()
+        return
 
-    for idx in range(1, len(items)):
-        search_idx, item = idx, items[idx]
-        while search_idx > 0 and items[search_idx - 1] > item:
-            items[search_idx] = items[search_idx - 1]
+    for idx in range(1, len(elems)):
+        search_idx, item = idx, elems[idx]
+        while search_idx > 0 and elems[search_idx - 1] > item:
+            elems[search_idx] = elems[search_idx - 1]
             search_idx -= 1
-        items[search_idx] = item
-    return items
+        elems[search_idx] = item
 
 __all__ = ['bubble_sort', 'selection_sort', 'insert_sort']
 
