@@ -26,5 +26,7 @@ def test_selection_sort():
 # def test_merge_sort():
 #     pass
 
-# def test_counting_sort():
-#     pass
+def test_counting_sort():
+    entry = [0, 4, 1, 3, 1, 2, 4, 1]
+    counting_sort(entry, 4)
+    assert entry == [0, 1, 1, 1, 2, 3, 4, 4]

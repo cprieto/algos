@@ -3,7 +3,7 @@ from typing import List, TypeVar
 T = TypeVar('T')
 
 
-def bubble_sort(elems: List[T]):
+def bubble_sort(elems: List[T]) -> None:
     """Sorts a list using the bubble sort algorithm, this is sort in-place"""
     if not elems:
         return
@@ -14,7 +14,7 @@ def bubble_sort(elems: List[T]):
                 elems[idx - 1], elems[idx] = elems[idx], elems[idx - 1]
 
 
-def selection_sort(elems: List[T]) -> List[T]:
+def selection_sort(elems: List[T]) -> None:
     """Sorts a list using the selection sort algorithm, this is sort in-place"""
     if not elems:
         return
@@ -28,7 +28,7 @@ def selection_sort(elems: List[T]) -> List[T]:
         elems[i], elems[smidx] = elems[smidx], elems[i]
 
 
-def insert_sort(elems: List[T]) -> List[T]:
+def insert_sort(elems: List[T]) -> None:
     """Sorts a list using the insertion sort algorithm, this is sort in-place"""
     if not elems:
         return
@@ -40,5 +40,19 @@ def insert_sort(elems: List[T]) -> List[T]:
             search_idx -= 1
         elems[search_idx] = item
 
-__all__ = ['bubble_sort', 'selection_sort', 'insert_sort']
 
+def counting_sort(elems: List[int], upto: int):
+    """Sorts a list of integers using counting sort, this is sort in-place and can be applied only to possitive integers"""
+    result = [0] * (upto + 1)
+    for i in range(0, len(elems)):
+        result[elems[i]] += 1
+    
+    current = 0
+    for i in range(0, len(result)):
+        if result[i]:
+            for n in range(0, result[i]):
+                elems[current] = i
+                current += 1
+            
+
+__all__ = ['bubble_sort', 'selection_sort', 'insert_sort', 'counting_sort']
