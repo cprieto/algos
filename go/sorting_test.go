@@ -5,48 +5,62 @@ import (
 	"testing"
 )
 
-var entry = []int{5, 1, 4, 2, 8}
 var expected = []int{1, 2, 4, 5, 8}
 
-func TestBubbleSortWithNilList(t *testing.T) {
-	result := BubbleSort(nil)
-	if result != nil {
-		t.Errorf("Expected a nil list but got %v", result)
+type testFunc func(elems []int)
+
+func tester(f testFunc, t *testing.T) {
+	entry := []int{5, 1, 4, 2, 8}
+	f(entry)
+	if !reflect.DeepEqual(entry, expected) {
+		t.Errorf("Expected %v but got %v\n", expected, entry)
 	}
 }
 
-func TestBubbleSortWithUnsortedList(t *testing.T) {
-	if result := BubbleSort(entry); !reflect.DeepEqual(expected, result) {
-		t.Errorf("Expected %v but got %v", expected, result)
+func TestBubbleSort(t *testing.T) {
+	tester(BubbleSort, t)
+}
+
+func TestInsertionSort(t *testing.T) {
+	tester(InsertionSort, t)
+}
+
+func TestSelectionSort(t *testing.T) {
+	tester(SelectionSort, t)
+}
+
+func TestCountingSort(t *testing.T) {
+	entry := []int{5, 1, 4, 2, 8}
+	CountingSort(entry, 8)
+	if !reflect.DeepEqual(entry, expected) {
+		t.Errorf("Expected %v but got %v\n", expected, entry)
 	}
 }
 
-func TestBubbleSortSortedListIsSorted(t *testing.T) {
-	if result := BubbleSort(expected); !reflect.DeepEqual(expected, result) {
-		t.Errorf("Expected %v but got %v", expected, result)
+func BenchmarkBubbleSort(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		entry := []int{24, 22, 4, 5, 15, 10, 23, 0, 13, 7, 2, 19, 3, 21, 6, 17, 14, 20, 18, 8, 1, 12, 16, 9, 11}
+		BubbleSort(entry)
 	}
 }
 
-func TestSelectionSortUnsortedSliceReturnsSortedSlice(t *testing.T) {
-	if result := Selection(entry); !reflect.DeepEqual(expected, result) {
-		t.Errorf("Expected %v but got %v", expected, result)
+func BenchmarkInsertionSort(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		entry := []int{24, 22, 4, 5, 15, 10, 23, 0, 13, 7, 2, 19, 3, 21, 6, 17, 14, 20, 18, 8, 1, 12, 16, 9, 11}
+		InsertionSort(entry)
 	}
 }
 
-func TestSelectionSortSortedSliceReturnsSortedSlice(t *testing.T) {
-	if result := Selection(expected); !reflect.DeepEqual(expected, result) {
-		t.Errorf("Expected %v but got %v", expected, result)
+func BenchmarkSelectionSort(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		entry := []int{24, 22, 4, 5, 15, 10, 23, 0, 13, 7, 2, 19, 3, 21, 6, 17, 14, 20, 18, 8, 1, 12, 16, 9, 11}
+		SelectionSort(entry)
 	}
 }
 
-func TestSelectionSortNilReturnsNil(t *testing.T) {
-	if result := Selection(nil); result != nil {
-		t.Errorf("Expected nil but got %v", result)
-	}
-}
-
-func TestInsertSortUnsortedSliceReturnsSortedSlice(t *testing.T) {
-	if result := InsertSort(entry); !reflect.DeepEqual(expected, result) {
-		t.Errorf("Expected %v but got %v", expected, result)
+func BenchmarkCountingSort(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		entry := []int{24, 22, 4, 5, 15, 10, 23, 0, 13, 7, 2, 19, 3, 21, 6, 17, 14, 20, 18, 8, 1, 12, 16, 9, 11}
+		CountingSort(entry, 24)
 	}
 }
